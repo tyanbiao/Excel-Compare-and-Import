@@ -24,6 +24,7 @@ import { useSelection, useTable, useFieldMetaList } from "@qww0302/use-bitable"
 import { cellTranslator } from "@/utils/cellValue"
 import { useStorage } from "@vueuse/core"
 import defaultOptions from "../../../plugin.config.json"
+import tableConfig from "@/utils/table.config"
 import { validateIndex, validateIndexAuto } from "./utils"
 import ExportIcon from "@/components/icons/export-icon.vue"
 import ImportIcon from "@/components/icons/import-icon.vue"
@@ -370,6 +371,13 @@ onMounted(() => {
     .getTableMetaList()
     .then((res) => {
       tableList.value = res
+      if (
+        tableConfig?.table &&
+        res.findIndex((v) => v.id === tableConfig.table) !== -1
+      ) {
+        targetTableId.value = tableConfig.table
+        applyConfig(tableConfig)
+      }
     })
     .catch((err) => {
       Error({
@@ -412,20 +420,7 @@ const exportConfig = () => {
   })
 }
 const configImporting = ref(false)
-const readConfig = async (file: UploadFile) => {
-  configImporting.value = true
-  if (!/\.json?$/.test(file.name)) {
-    Error({
-      title: "configFileTypeError",
-      message: t("message.fileType"),
-      notice: true,
-      noticeParams: {
-        text: "message.fileType",
-      },
-    })
-    return
-  }
-  const config = JSON.parse((await file.raw?.text()) ?? "")
+const applyConfig = async (config: Record<string, any>) => {
   if (!config) return
   const { fieldMaps, index, table } = config
   if (table && table !== targetTableId.value) {
@@ -463,6 +458,25 @@ const readConfig = async (file: UploadFile) => {
     const tableFields = settingColumns.value.map((i) => i.field.id)
     Index.value = index.filter((i: string) => tableFields.includes(i))
   }
+}
+const readConfig = async (file: UploadFile) => {
+  configImporting.value = true
+  if (!/\.json?$/.test(file.name)) {
+    Error({
+      title: "configFileTypeError",
+      message: t("message.fileType"),
+      notice: true,
+      noticeParams: {
+        text: "message.fileType",
+      },
+    })
+    return
+  }
+  const config = JSON.parse((await file.raw?.text()) ?? "")
+  if (!config) {
+    return
+  }
+  await applyConfig(config)
   ElMessage.success(t("message.importSuccess"))
   configImporting.value = false
 }
@@ -508,6 +522,7 @@ defineExpose({
     >
       <el-select
         v-model="targetTableId"
+        :disabled="tableConfig?.modifyDisabled"
         :placeholder="t('input.placeholder.chooseTable')"
       >
         <el-option
@@ -526,6 +541,7 @@ defineExpose({
       <template #label="{ label }">
         <label>{{ label }}</label>
         <div
+          v-if="!tableConfig?.modifyDisabled"
           style="display: inline-flex; margin-left: 20px"
           class="el-form-item__content"
         >
@@ -601,27 +617,30 @@ defineExpose({
         stripe
         max-height="250"
         :data="
-          settingColumns.filter(
-            (i) =>
-              cellTranslator.supportTypes.includes(i.field.type) ||
-              indexFieldType.includes(i.field.type),
-          )
+          settingColumns.filter((i) => {
+            let fieldEnabled = tableConfig?.fieldMaps
+              ? (tableConfig.fieldMaps as Record<string, any>)[i.field.id]
+                  ?.excel_field
+              : true
+            return (
+              fieldEnabled &&
+              (cellTranslator.supportTypes.includes(i.field.type) ||
+                indexFieldType.includes(i.field.type))
+            )
+          })
         "
         row-key="key"
       >
         <el-table-column
           :label="t('table.baseField')"
-          :filters="filters"
-          :filter-method="filterHandler"
           prop="field.name"
-          filter-placement="bottom-end"
         >
           <template #default="{ row }">
             <field-icon :type="row.field.type" />
 
             {{ row.field.name }}
             <el-tooltip
-              v-if="row.linkConfig"
+              v-if="row.linkConfig && !tableConfig?.modifyDisabled"
               :content="t('toolTip.setInputFormat')"
             >
               <el-button
@@ -636,7 +655,9 @@ defineExpose({
             <el-select-v2
               v-if="row.root"
               v-model="row.excel_field"
-              :disabled="!(excelFields.length > 0)"
+              :disabled="
+                tableConfig?.modifyDisabled && !(excelFields.length > 0)
+              "
               :options="
                 excelFields.map((i) => ({ label: i.name, value: i.name }))
               "
@@ -647,6 +668,7 @@ defineExpose({
             />
             <el-tooltip
               v-if="
+                !tableConfig?.modifyDisabled &&
                 Object.keys(row.config).some((i) =>
                   settingRef.allowConfig.includes(i),
                 )
@@ -669,6 +691,7 @@ defineExpose({
     >
       <el-cascader
         v-model="modeSelect"
+        :disabled="tableConfig?.modifyDisabled"
         :options="getModeList()"
       />
     </el-form-item>

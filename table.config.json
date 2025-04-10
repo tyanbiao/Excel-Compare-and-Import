@@ -1,0 +1,33 @@
+{
+  "fieldMaps": {
+    "fldyakbSPD": { "config": {} },
+    "fldg3ba3q7": {
+      "excel_field": "缩略图",
+      "config": {
+        "separator": ",",
+        "requestConfig": { "method": "GET", "headers": [], "body": "" }
+      }
+    },
+    "fldS9IP35H": { "config": {} },
+    "fldNM6tEjk": { "config": {} },
+    "fldx2yOmuZ": { "config": {} },
+    "fldWClrYQy": { "excel_field": "其他备注说明", "config": {} },
+    "fldTOW6dEx": { "excel_field": "材料", "config": {} },
+    "fldxI9Ucne": { "config": { "separator": "," } },
+    "fld3zHRwoO": { "config": {} },
+    "fldMg1UBhU": { "config": { "format": "YYYY/MM/DD" } },
+    "fld8w88IMy": { "config": {} },
+    "fldTUqbUki": { "config": {} },
+    "fldONOhDOt": { "config": { "separator": "," } },
+    "fld2D0fTQ9": { "excel_field": "物料名称/图纸名称", "config": {} },
+    "fld6sm2jis": { "excel_field": "特别注意事项", "config": {} },
+    "fldkD3jbgs": { "config": {} },
+    "fldTE16HGO": { "excel_field": "表面处理", "config": {} },
+    "fldhsh7wLK": { "excel_field": "数量", "config": {} },
+    "fld29tfZbE": { "config": {} }
+  },
+  "index": [],
+  "table": "tblQ11MZOn6O7cOs",
+  "mode": "append",
+  "modifyDisabled": true
+}
