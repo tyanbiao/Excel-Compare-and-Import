@@ -100,7 +100,6 @@ watch(
 )
 const scrollRef = ref<InstanceType<typeof ElScrollbar>>()
 const onImported = () => {
-  showReward.value = true
   console.log(scrollRef.value, scrollRef.value?.$el.clientHeight)
   nextTick(() => {
     scrollRef.value?.scrollTo(0, parseFloat(scrollRef.value?.$el.clientHeight))
@@ -180,12 +179,12 @@ onMounted(async () => {
             <template #content>
               <span>Github</span>
             </template>
-            <el-link
+            <!-- <el-link
               target="_blank"
               href="https://github.com/zjut-bio-party-undergraduate-branch/Excel-Compare-and-Import"
             >
               <el-icon><GithubIcon /></el-icon>
-            </el-link>
+            </el-link> -->
           </el-tooltip>
           <el-tooltip>
             <template #content>
