@@ -633,7 +633,14 @@ defineExpose({
       >
         <el-table-column
           :label="t('table.baseField')"
+          :filters="tableConfig?.modifyDisabled ? undefined : filters"
+          :filter-method="
+            tableConfig?.modifyDisabled ? undefined : filterHandler
+          "
           prop="field.name"
+          :filter-placement="
+            tableConfig?.modifyDisabled ? undefined : 'bottom-end'
+          "
         >
           <template #default="{ row }">
             <field-icon :type="row.field.type" />
@@ -656,7 +663,7 @@ defineExpose({
               v-if="row.root"
               v-model="row.excel_field"
               :disabled="
-                tableConfig?.modifyDisabled && !(excelFields.length > 0)
+                tableConfig?.modifyDisabled || !(excelFields.length > 0)
               "
               :options="
                 excelFields.map((i) => ({ label: i.name, value: i.name }))
