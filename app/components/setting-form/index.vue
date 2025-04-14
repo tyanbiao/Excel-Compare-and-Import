@@ -196,7 +196,7 @@ const {
   Index,
   reset,
   pending: mapPending,
-} = useSetting(tableFields, excelData, activeTableId)
+} = useSetting(tableFields, excelData, targetTableId)
 const importLoading = ref(false)
 const currentSetting = ref<fieldMap>()
 
