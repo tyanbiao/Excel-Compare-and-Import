@@ -79,7 +79,7 @@ export async function readXLSX(
       if (tableData.length <= 1) return null
       try {
         const fields = tableData[0]?.map((name: string) => ({
-          name: String(name),
+          name: String(name).trim(),
         }))
         const records = tableData
           .slice(1)

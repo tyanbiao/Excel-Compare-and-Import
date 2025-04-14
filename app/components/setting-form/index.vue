@@ -522,7 +522,6 @@ defineExpose({
     >
       <el-select
         v-model="targetTableId"
-        :disabled="tableConfig?.modifyDisabled"
         :placeholder="t('input.placeholder.chooseTable')"
       >
         <el-option

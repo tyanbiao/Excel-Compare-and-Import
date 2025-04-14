@@ -12,7 +12,7 @@ import { Error } from "@/utils"
 import viewXLSX from "@/components/view-xlsx/index.vue"
 import { readXLSX } from "./readXLSX"
 import { useStorage } from "@vueuse/core"
-import { bitable } from "@lark-base-open/js-sdk"
+import { bitable, FieldType } from "@lark-base-open/js-sdk"
 import defaultOptions from "../../../plugin.config.json"
 import { handleExcelDataInfo } from "@/utils/excelMedia"
 
@@ -111,6 +111,11 @@ const { data, pending, name } = useFileReader<ExcelDataInfo | null>(excelFile, {
 onMounted(async () => {
   console.log(t("onMounted"))
   userId.value = await bitable.bridge.getUserId()
+  const table = await bitable.base.getActiveTable()
+  const base = (table as any).base
+  const select = await base.getSelection()
+  const off = base.onSelectionChange(onSelectChange)
+  await onSelectChange({ data: select })
 })
 
 function getFile(file: UploadFile) {
@@ -127,6 +132,57 @@ function getFile(file: UploadFile) {
     return
   }
   excelFile.value = file.raw as File
+}
+
+async function onSelectChange(event: { data: any }) {
+  excelFile.value = null
+  const select = event.data
+  if (
+    !select.baseId ||
+    !select.tableId ||
+    !select.fieldId ||
+    !select.recordId
+  ) {
+    console.log("not select")
+    return
+  }
+  const table = await bitable.base.getTable(select.tableId)
+  const field: any = await table.getField(select.fieldId)
+  if ((await field.getType()) !== FieldType.Attachment) {
+    console.log("not attachment")
+    return
+  }
+
+  const vals =
+    (await field
+      .getValue(select.recordId)
+      .catch((err: any) => console.log(err), [])) || []
+  console.log(vals)
+  if (vals.length === 0) {
+    console.log("not value")
+    return
+  }
+  const attachment = vals[0]
+  if (
+    attachment.type !==
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  ) {
+    console.log("not attachment")
+    ElMessage.error(t("message.fileType"))
+    return
+  }
+  const urls =
+    (await field
+      .getAttachmentUrls(select.recordId)
+      .catch((err: any) => console.log(err), [])) || []
+  console.log(urls)
+  const url = urls[0]
+  console.log(url)
+  const file = await fetch(url)
+  const blob = await file.blob()
+  const fileObj = new File([blob], attachment.name, { type: file.type })
+  console.log(fileObj)
+  excelFile.value = fileObj
 }
 
 function exceedHandler(files: File[]): void {

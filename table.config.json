@@ -1,33 +1,16 @@
 {
   "fieldMaps": {
-    "fldyakbSPD": { "config": {} },
-    "fldg3ba3q7": {
-      "excel_field": "缩略图",
-      "config": {
-        "separator": ",",
-        "requestConfig": { "method": "GET", "headers": [], "body": "" }
-      }
-    },
-    "fldS9IP35H": { "config": {} },
-    "fldNM6tEjk": { "config": {} },
-    "fldx2yOmuZ": { "config": {} },
-    "fldWClrYQy": { "excel_field": "其他备注说明", "config": {} },
-    "fldTOW6dEx": { "excel_field": "材料", "config": {} },
-    "fldxI9Ucne": { "config": { "separator": "," } },
-    "fld3zHRwoO": { "config": {} },
-    "fldMg1UBhU": { "config": { "format": "YYYY/MM/DD" } },
-    "fld8w88IMy": { "config": {} },
-    "fldTUqbUki": { "config": {} },
-    "fldONOhDOt": { "config": { "separator": "," } },
-    "fld2D0fTQ9": { "excel_field": "物料名称/图纸名称", "config": {} },
-    "fld6sm2jis": { "excel_field": "特别注意事项", "config": {} },
-    "fldkD3jbgs": { "config": {} },
-    "fldTE16HGO": { "excel_field": "表面处理", "config": {} },
-    "fldhsh7wLK": { "excel_field": "数量", "config": {} },
-    "fld29tfZbE": { "config": {} }
+    "fldcFNwVaV": { "config": {} },
+    "fldGvhwKdt": { "excel_field": "产品/图纸名称", "config": {} },
+    "fldP6XKXw1": { "excel_field": "规格", "config": {} },
+    "fldxJ8H9rZ": { "config": { "separator": "," } },
+    "fldI1m6bsr": { "excel_field": "单价（元/件）", "config": {} },
+    "fldhjLoFiZ": { "excel_field": "型号", "config": {} },
+    "fldRhLCsU6": { "config": {} },
+    "fldGBbVMq5": { "excel_field": "数量（件）", "config": {} }
   },
   "index": [],
-  "table": "tblQ11MZOn6O7cOs",
+  "table": "tblv5FPKr6IwihVg",
   "mode": "append",
   "modifyDisabled": true
 }
