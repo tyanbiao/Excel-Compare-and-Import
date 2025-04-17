@@ -15,6 +15,7 @@ import {
   Warn,
   // notSupportFields,
 } from "@/utils"
+import autofillConfig from "../../../../autofill.json"
 
 async function loadFieldMaps(
   fields: IFieldMeta[],
@@ -108,7 +109,20 @@ export function useSetting(
     if (!toValue(excelData) || !toValue(tableFields)) return
     const excelFieldsArray = toValue(excelFields).map((field) => field.name)
     settingColumns.value.forEach((column) => {
-      if (excelFieldsArray.includes(column.field.name)) {
+      const autofillConfigRecord = autofillConfig as unknown as Record<
+        string,
+        any
+      >
+      const tableIdString = toValue(tableId)
+      if (tableIdString && autofillConfigRecord[tableIdString]) {
+        const autofillField = autofillConfigRecord[tableIdString]?.[
+          column.field.id
+        ] as string | undefined
+        if (autofillField && excelFieldsArray.includes(autofillField)) {
+          column.excel_field = autofillField
+        }
+      }
+      if (!column.excel_field && excelFieldsArray.includes(column.field.name)) {
         column.excel_field = column.field.name
       }
       if (column.hasChildren && column.children) {

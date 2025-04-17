@@ -209,6 +209,15 @@ watch(
 )
 
 watch(
+  () => targetTableId.value,
+  () => {
+    if (!targetTableId.value) return
+    reset()
+    fill()
+  },
+)
+
+watch(
   () => modeSelect.value,
   (newVal) => {
     mode.value = newVal[newVal.length - 1] as importModes

@@ -1,0 +1,10 @@
+{
+  "tblv5FPKr6IwihVg": {
+    "fldGvhwKdt": "规格/型号/图纸名称"
+  },
+  "tblOmsXyjid6oGtO": {
+    "fldGvhwKdt": "产品名称（非量产可不填）",
+    "fldGBbVMq5": "数量（件）",
+    "fldI1m6bsr": "单价（元/件）"
+  }
+}
