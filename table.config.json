@@ -4,10 +4,10 @@
     "fldGvhwKdt": { "excel_field": "产品/图纸名称", "config": {} },
     "fldP6XKXw1": { "excel_field": "规格", "config": {} },
     "fldxJ8H9rZ": { "config": { "separator": "," } },
-    "fldI1m6bsr": { "excel_field": "单价（元/件）", "config": {} },
+    "fldI1m6bsr": { "excel_field": "单价", "config": {} },
     "fldhjLoFiZ": { "excel_field": "型号", "config": {} },
     "fldRhLCsU6": { "config": {} },
-    "fldGBbVMq5": { "excel_field": "数量（件）", "config": {} }
+    "fldGBbVMq5": { "excel_field": "数量", "config": {} }
   },
   "index": [],
   "table": "tblv5FPKr6IwihVg",

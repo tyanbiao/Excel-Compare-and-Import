@@ -1,11 +1,13 @@
 {
   "tblv5FPKr6IwihVg": {
-    "fldGvhwKdt": "图纸名称/规格/型号"
+    "fldGvhwKdt": "图纸名称/规格/型号",
+    "fldGBbVMq5": "数量",
+    "fldI1m6bsr": "单价"
   },
   "tblOmsXyjid6oGtO": {
-    "fldGvhwKdt": "产品名称\n（仅量产需填写）",
-    "fldGBbVMq5": "数量（件）",
-    "fldI1m6bsr": "单价（元/件）",
+    "fldGvhwKdt": "产品名称",
+    "fldGBbVMq5": "数量",
+    "fldI1m6bsr": "单价",
     "fldhjLoFiZ": "图纸名称/规格/型号"
   }
 }

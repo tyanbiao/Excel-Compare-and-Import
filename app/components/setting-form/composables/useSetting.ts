@@ -118,8 +118,13 @@ export function useSetting(
         const autofillField = autofillConfigRecord[tableIdString]?.[
           column.field.id
         ] as string | undefined
-        if (autofillField && excelFieldsArray.includes(autofillField)) {
-          column.excel_field = autofillField
+        if (autofillField) {
+          const excelField = excelFieldsArray.find((i) =>
+            i.startsWith(autofillField),
+          )
+          if (excelField) {
+            column.excel_field = excelField
+          }
         }
       }
       if (!column.excel_field && excelFieldsArray.includes(column.field.name)) {
