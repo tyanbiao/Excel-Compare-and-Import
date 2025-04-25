@@ -107,13 +107,13 @@ export function useSetting(
 
   function fill() {
     if (!toValue(excelData) || !toValue(tableFields)) return
+    const tableIdString = toValue(tableId)
     const excelFieldsArray = toValue(excelFields).map((field) => field.name)
     settingColumns.value.forEach((column) => {
       const autofillConfigRecord = autofillConfig as unknown as Record<
         string,
         any
       >
-      const tableIdString = toValue(tableId)
       if (tableIdString && autofillConfigRecord[tableIdString]) {
         const autofillField = autofillConfigRecord[tableIdString]?.[
           column.field.id
