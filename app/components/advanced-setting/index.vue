@@ -5,10 +5,11 @@ import { useStorage } from "@vueuse/core"
 import type { ImportOptions } from "@/types/types"
 import { bitable } from "@lark-base-open/js-sdk"
 import defaultOptions from "../../../plugin.config.json"
+import { APP_NAME } from "@/config/app.config"
 
 const userId = ref<string>(await bitable.bridge.getUserId())
 const userOptions = useStorage<ImportOptions>(
-  `Excel_Compare_and_import-${userId.value}`,
+  `${APP_NAME}_${userId.value}`,
   defaultOptions,
   undefined,
   {

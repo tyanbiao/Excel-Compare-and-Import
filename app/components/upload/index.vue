@@ -15,6 +15,7 @@ import { useStorage } from "@vueuse/core"
 import { bitable, FieldType } from "@lark-base-open/js-sdk"
 import defaultOptions from "../../../plugin.config.json"
 import { handleExcelDataInfo } from "@/utils/excelMedia"
+import { APP_NAME } from "@/config/app.config"
 
 const showView = ref(false)
 function toggleShowView() {
@@ -30,7 +31,7 @@ const userOptions = ref<ReturnType<typeof useStorage<ImportOptions>>>()
 watchEffect(() => {
   if (userId.value) {
     userOptions.value = useStorage<ImportOptions>(
-      `Excel_Compare_and_import-${userId.value}`,
+      `${APP_NAME}_${userId.value}`,
       defaultOptions,
       undefined,
       {

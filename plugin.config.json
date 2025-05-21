@@ -1,7 +1,7 @@
 {
   "headIndex": 2,
   "parallel": {
-    "records": 500,
+    "records": 1,
     "fields": 10
   },
   "interval": {

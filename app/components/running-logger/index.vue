@@ -4,6 +4,7 @@ import { computed, h, ref } from "vue"
 import { type RowClassNameGetter, type Column, ElTag } from "element-plus"
 import ExportIcon from "@/components/icons/export-icon.vue"
 import { downLoadFileFromA } from "@/utils"
+import { APP_NAME } from "@/config/app.config"
 // import { useFileSystemAccess } from "@vueuse/core"
 
 // const {
@@ -127,7 +128,7 @@ const saveLog = () => {
   const logString = JSON.stringify(data.value, null, 2)
   downLoadFileFromA(
     `data:text/json;charset=utf-8,${encodeURIComponent(logString)}`,
-    `Excel_Compare_and_Import_Log_${Date.now()}.json`,
+    `${APP_NAME}_Log_${Date.now()}.json`,
   )
 }
 

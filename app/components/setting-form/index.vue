@@ -28,6 +28,7 @@ import tableConfig from "@/utils/table.config"
 import { validateIndex, validateIndexAuto } from "./utils"
 import ExportIcon from "@/components/icons/export-icon.vue"
 import ImportIcon from "@/components/icons/import-icon.vue"
+import { APP_NAME } from "@/config/app.config"
 
 const { t } = useI18n()
 const props = defineProps({
@@ -75,7 +76,7 @@ enum AllowAction {
 
 const userId = ref<string>(await bitable.bridge.getUserId())
 const userOptions = useStorage<ImportOptions>(
-  `Excel_Compare_and_import-${userId.value}`,
+  `${APP_NAME}_${userId.value}`,
   defaultOptions,
   undefined,
   {
