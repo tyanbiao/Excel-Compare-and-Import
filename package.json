@@ -1,5 +1,5 @@
 {
-  "name": "feishu_plugin_bom_import",
+  "name": "feishu_plugin_hetong_import",
   "version": "3.1.4.250513",
   "type": "module",
   "description": "This is a Base extension for Feishu that compares local Excel files with base and imports the differences into the current Base.",
